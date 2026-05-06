@@ -9,3 +9,13 @@ export interface User {
   image: string
   household: Household
 }
+
+export interface Chore {
+  id: string,
+  name: string,
+  frequency: 1 | 7 | 14 | 30 | null,
+  lastDone: DateTime | null,
+  toDo: boolean,
+  householdId: string | null,
+  assignees: User[]
+}

@@ -1,7 +1,13 @@
+<script setup lang="ts">
+import router from "@/router";
+</script>
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
+  <div>
+    <h1>Welcome to KSO</h1>
+    <button @click="router.push({ name: 'enter' })">Enter</button>
   </div>
 </template>
 
-<style></style>
+<style scoped>
+
+</style>

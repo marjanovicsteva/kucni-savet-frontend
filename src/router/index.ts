@@ -17,6 +17,15 @@ const router = createRouter({
       },
     },
     {
+      path: '/raw',
+      name: 'raw',
+      component: () => {
+        const userStore = useUserStore()
+
+        return userStore.isLoggedIn ? import('../views/RawView.vue') : AboutView
+      },
+    },
+    {
       path: '/about',
       name: 'about',
       component: () => AboutView,

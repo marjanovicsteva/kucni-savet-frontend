@@ -1,6 +1,9 @@
 import router from '@/router'
-import type { User } from './models'
+import type {Chore, User} from './models'
 
+/**
+ * BASE INFO
+ */
 const url = import.meta.env.VITE_BACKEND_URL
 const apiUrl = `${url}/api`
 const tokenKey = 'accessToken'
@@ -39,6 +42,21 @@ async function request<T>(
   else throw new Error(`ERROR ${path}`)
 }
 
+function setAccessToken(accessToken: string) {
+  localStorage.setItem(tokenKey, accessToken)
+}
+
+function getAccessToken() {
+  return localStorage.getItem(tokenKey)
+}
+
+function removeAccessToken() {
+  localStorage.removeItem(tokenKey)
+}
+
+/**
+ * AUTH CONTROLLER
+ */
 export interface LoginResponse {
   token: string
 }
@@ -59,18 +77,42 @@ export async function logout() {
   router.push({ name: 'home' })
 }
 
+/**
+ * USER CONTROLLER
+ */
 export async function currentUser() {
   return request<User>('/user')
 }
 
-function setAccessToken(accessToken: string) {
-  localStorage.setItem(tokenKey, accessToken)
+export async function householdUsers() {
+  return request<User[]>('/user/household')
 }
 
-function getAccessToken() {
-  return localStorage.getItem(tokenKey)
+/**
+ * CHORE CONTROLLER
+ */
+export async function getAllChores() {
+  const response = await request<Chore[]>("chore/household")
+  return response
 }
 
-function removeAccessToken() {
-  localStorage.removeItem(tokenKey)
+export async function createChore(chore: Chore) {
+  console.log("Creating chore", chore)
+  const response = await request<Chore>('chore', 'POST', chore)
+  return response
+}
+
+export async function assignChore(choreId: string, assigneeId: string) {
+  const response = await request<Chore>(`chore/${choreId}/assign/${assigneeId}`, 'PATCH')
+  return response
+}
+
+export async function updateChoreAssignees(choreId: string, assignees: User[]) {
+  const response = await request<Chore>(`chore/${choreId}/assignees`, 'PATCH', { assignees })
+  return response
+}
+
+export async function markChoreAsDone(choreId: string) {
+  const response = await request<Chore>(`chore/${choreId}/mark-done`, 'PATCH')
+  return response
 }

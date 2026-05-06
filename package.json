@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",
@@ -15,10 +15,7 @@
     "format": "oxfmt src/"
   },
   "dependencies": {
-    "@primeuix/themes": "^2.0.3",
     "pinia": "^3.0.4",
-    "primeicons": "^7.0.0",
-    "primevue": "^4.5.4",
     "vue": "^3.5.30",
     "vue-router": "^5.0.3"
   },

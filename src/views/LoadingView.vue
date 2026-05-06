@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <span class="loading">Loading...</span>
+    <img width="30%" class="loading" src="@/assets/kso.png" alt="">
   </div>
 </template>
 
@@ -11,6 +11,10 @@
   justify-content: center;
   align-items: center;
   inset: 0;
+  z-index: 1001;
+
+  background-color: var(--color-background);
+  color: var(--color-text);
 }
 
 .loading {

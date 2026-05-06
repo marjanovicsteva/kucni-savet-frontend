@@ -1,47 +1,55 @@
 <script setup lang="ts">
-import { logout } from '@/api/backend'
-import { Button, Menubar } from 'primevue'
+import ContentContainer from "@/components/ContentContainer.vue";
+import MenuBar from "@/components/MenuBar.vue";
 
 const items = [
   {
     label: 'Home',
+    href: { name: 'home' },
     icon: 'pi pi-home',
   },
   {
-    label: 'Features',
-    icon: 'pi pi-star',
+    label: 'Raw',
+    href: { name: 'raw' },
+    icon: 'pi pi-database'
+  },
+  {
+    label: 'Notifications',
+    icon: 'pi pi-bell',
+  },
+  {
+    label: 'Profile',
+    href: { name: 'about' },
+    icon: 'pi pi-user',
   },
 ]
 </script>
 
 <template>
-  <div>
+  <div class="app">
     <header>
-      <Menubar :model="items">
-        <template #end>
-          <Button
-            label="Logout"
-            icon="pi pi-sign-out"
-            variant="text"
-            severity="secondary"
-            @click="logout()"
-          />
-        </template>
-      </Menubar>
+      <MenuBar :items="items"></MenuBar>
     </header>
 
     <main>
-      <slot></slot>
+      <ContentContainer>
+        <slot></slot>
+      </ContentContainer>
     </main>
   </div>
 </template>
 
-<style>
+<style scoped>
+.app {
+  overflow-x: hidden;
+  min-height: 100vh;
+  margin-bottom: 100px;
+}
 header {
   padding: 1rem;
 }
 
 main {
-  padding: 2rem;
+  padding: 1rem;
 }
 </style>
